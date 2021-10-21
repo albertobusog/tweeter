@@ -3,5 +3,7 @@ Rails.application.routes.draw do
   # get '/users', to: 'users#index'
   # get '/users/:id', to: 'users#create'
 
-  resources :users
+  resources :users do
+    resources :tweets
+  end
 end
