@@ -50,6 +50,7 @@ RSpec.describe "Users", type: :request do
 
     let(:user) do
       FactoryBot.create(:user)
+      # FactoryBot.create(:user, username: 'juan', full_name: 'Juan Perez')
     end
 
     context 'the user does not exist' do
