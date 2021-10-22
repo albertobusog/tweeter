@@ -20,15 +20,13 @@ class UsersController < ApplicationController
   end
 
   def login
-    # params[:username]
-    # params[:password]
     @user = User.find_by(username: params[:username])
     # @user = User.where(username: params[:username]).first
     if @user && @user.authenticate(params[:password])
       token = JWT.encode({ user_id: @user.id }, 'SECRET')
       render json: { token: token }
     else
-      render json: { error: 'Invalid username or password'}
+      render json: { error: 'Invalid username or password' }
     end
   end
 

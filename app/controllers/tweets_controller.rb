@@ -8,13 +8,11 @@ class TweetsController < ApplicationController
   end
 
   def show
-    @tweet = user.find(params[:id])
-    render json: @tweet
+    @tweet = user.tweets.find(params[:id])
   end
 
   def create
-    @tweet = user.tweets.create(content: params[:content], likes: 0)
-    render json: @tweet
+    @tweet = user.tweets.create(content: params[:content], likes: 0)    
   end
 
   def like
@@ -37,7 +35,7 @@ private
 
     @token_info = JWT.decode(token, 'SECRET')
   rescue JWT::DecodeError
-    render json: { error: 'Not authorized'}
+    render json: { error: 'Invalid authorization'}
   end
 
   def token 

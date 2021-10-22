@@ -115,4 +115,34 @@ RSpec.describe "Users", type: :request do
       end
     end
   end
+
+  describe "POST /login" do
+    subject do
+      post "/login", headers: { ACCEPT: 'application/json' }, params: params
+      response
+    end
+    before { FactoryBot.create(:user) }
+
+    context 'invalid credentials' do
+      let(:params) do
+        {
+          username: 'tony',
+          password: '12345',
+        }
+      end
+
+      it { expect(subject.parsed_body).to include({ 'error' => 'Invalid username or password'}) }
+    end
+
+    context 'valid credentials' do
+      let(:params) do
+        {
+          username: 'tony',
+          password: '123456',
+        }
+      end
+
+      it { expect(subject.parsed_body).to have_key('token') }
+    end
+  end
 end
