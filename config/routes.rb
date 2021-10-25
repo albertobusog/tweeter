@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :tweets
+    resources :photos
   end
 
   post 'users/:user_id/tweets/:id/like', to: 'tweets#like'
